@@ -1,0 +1,124 @@
+//- Authors: Farid Kassam, Shefqet Zyko, Srinivasan Sivalingam
+//- Grp1 Team 2
+//- Date: 25 Mar 2021
+
+//- Description: displays agencies and agents
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description' content='')
+  meta(name='author' content='Mark Otto, Jacob Thornton, and Bootstrap contributors')
+  meta(name='generator' content='Hugo 0.80.0')
+  title=pagetitle
+  link(rel='canonical' href='https://getbootstrap.com/docs/4.6/examples/blog/')
+  // Bootstrap core CSS
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css' integrity='sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l' crossorigin='anonymous')
+  style.
+    .jumbotron{background-color:rgb(255, 0, 0, 0.7);}
+    .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+    @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+    }
+    }
+    body{
+     background-image: url("../images/havana-2.jpg");
+     background-size: cover;
+    }
+    #indvBlog{
+    background: rgba(253, 160, 101,0.5);
+    }
+  // Custom styles for this template
+  link(href='https://fonts.googleapis.com/css?family=Playfair+Display:700,900' rel='stylesheet')
+  // Custom styles for this template
+  link(href='./stylesheets/style.css' rel='stylesheet')
+.container
+  header.blog-header.py-3
+  nav.navbar.navbar-expand-md.navbar-light.fixed-top(style='background-color: #e3f2fd;')
+    a.navbar-brand(href='/') Travel Experts
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarsExampleDefault.collapse.navbar-collapse
+      ul.navbar-nav.mr-auto
+        li.nav-item.active
+          a.nav-link(href='destinations.html') Destinations
+        li.nav-item.active
+          a.nav-link(href='/packages') Packages
+        li.nav-item.active
+          a.nav-link(href='/viewbookings') Bookings
+        li.nav-item.active
+          a.nav-link(href='/blogs/all') Blogs
+        li.nav-item.active
+          a.nav-link(href='/blogs') Create Blog
+        li.nav-item.active
+          a.nav-link(href='/register')
+            | Register 
+            span.sr-only (current)
+        li.nav-item
+          a.nav-link(href='/contacts') Contact Us
+  
+  .jumbotron.p-4.p-md-5.text-white.rounded
+    .col-md-6.px-0
+      h4.display-4.font-italic Contact Us
+      p.lead.my-3 We'll get you to your dream destination!
+   
+main.container.pt-3(style='padding:15px;')
+  .row
+   each agency in contactAgency 
+    .col-md-6 
+      .bd-example(style='margin-top: 25px;')
+       .card.mx-auto(style='width: 25rem;background: rgb(255, 193, 7, 0.7); font-size: 18px;')
+        .card-body
+          p.card-text
+            address
+            strong Travel Experts
+            br
+            |           #{agency.AgncyAddress}
+            br
+            |           #{agency.AgncyCity +" "+agency.AgncyProv}
+            br
+            |           #{agency.AgncyCountry}
+            br
+            abbr(title='Phone') P:
+            |  #{agency.AgncyPhone}
+   
+  br
+  .row
+    .col-md-6
+     each agent in contactAgents1
+       .card.mx-auto(style='width: 25rem;background: rgb(255, 193, 7, 0.7); font-size: 18px;')
+        .card-body
+          p.card-text
+            address
+            strong #{agent.AgtFirstName+" "+ agent.AgtLastName}
+            br
+            abbr(title='Phone') P:
+            |  #{agent.AgtBusPhone}
+            br
+            strong E-mail:
+            a(style='color: #0062cc' href='mailto:#{agent.AgtEmail}') #{agent.AgtEmail}
+       br      
+         
+    .col-md-6
+      each agent in contactAgents2
+        .card.mx-auto(style='width: 25rem;background: rgb(255, 193, 7, 0.70); font-size: 18px;')
+          .card-body
+            p.card-text
+              address
+              strong #{agent.AgtFirstName+" "+ agent.AgtLastName}
+              br
+              abbr(title='Phone') P:
+              |  #{agent.AgtBusPhone}
+              br
+              strong E-mail:
+              a(style='color: #0062cc' href='mailto:#{agent.AgtEmail}') #{agent.AgtEmail}
+        br
+  

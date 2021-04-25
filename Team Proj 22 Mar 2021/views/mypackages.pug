@@ -1,0 +1,119 @@
+//- Authors: Irshaad Sardiwalla, Srinivasan Sivalingam
+//- Grp1 Team 2
+//- Date: 20 Mar 2021
+
+//- Description: displays all packages; data retireved from database passed as parameters to the pug page
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description' content='')
+  meta(name='author' content='Mark Otto, Jacob Thornton, and Bootstrap contributors')
+  meta(name='generator' content='Hugo 0.80.0')
+  title Packages
+  link(rel='canonical' href='https://getbootstrap.com/docs/4.6/examples/jumbotron/')
+  // Bootstrap core CSS
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css' integrity='sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l' crossorigin='anonymous')
+  style.
+    .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+    @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+    }
+    }
+    .jumbotron{
+    background-color: #ea7777;
+    background-image: url(images/sunrise-phu-quoc-island-ocean.jpg);
+    background-size:cover;
+    }
+    .bg-dark {
+    background-color: #ea7777;
+    }
+  
+  // Custom styles for this template
+  link(href='stylesheets/jumbotron.css' rel='stylesheet')
+// font style of main page nav bar
+// -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+// Navbar search is present but not function
+nav.navbar.navbar-expand-md.navbar-light.fixed-top(style='background-color: #e3f2fd;')
+  a.navbar-brand(href='/') Travel Experts
+  button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  #navbarsExampleDefault.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto
+      ul.navbar-nav.mr-auto
+        li.nav-item.active
+          a.nav-link(href='destinations.html') Destinations
+        li.nav-item.active
+          a.nav-link(href='/packages') Packages
+        li.nav-item.active
+          a.nav-link(href='/viewbookings') Bookings
+        li.nav-item.active
+          a.nav-link(href='/blogs/all') Blogs
+        li.nav-item.active
+          a.nav-link(href='/blogs') Create Blog
+        li.nav-item.active
+          a.nav-link(href='/register')
+            | Register 
+            span.sr-only (current)
+        li.nav-item
+          a.nav-link(href='/contacts') Contact Us
+    if currentUser   
+      .mt-1.mr-4.float-right
+        a.float-right(href="/log-out") Logout
+        p.float-right.mx-4.text-dark Welcome #{currentUser.userid}
+main(role='main')
+  // Main jumbotron for a primary marketing message or call to action
+  .jumbotron
+    .container
+      h1.display-3(style='color: bisque;') Explore
+      p(style='color: bisque')
+        | noun:
+        br
+        |       to search and discover.
+      h2(style='text-align: center; font-weight: bold;') Seek. Find.
+      p
+  .container
+    // Example row of columns
+    
+    .row
+      //- use 'each' 'in' to loop through array. Code indented within 'each' statement will be executeD the same number of times
+      //- as there are elements in the array e.g. if array contains 5 elements, the loop would run 5 times. Usually the elements are objects
+      //- when you read from mongoDB
+      each package in data
+          .col-md-6
+            h2=package.PkgName
+              | 
+              span=`$${package.PkgBasePrice}`
+                a.button.btn.btn-info(id=package.PkgName href=`/book/${package._id}` type='button' style='margin:5px') Book
+            img(src=package.PkgImg alt='Playa-de-las-Americas' style='width:100%')
+            h4=`Duration: ${Math.floor((package.PkgEndDate-package.PkgStartDate)/1000/60/60/24/7)} weeks`
+            h4=`Start: ${package.PkgStartDate.toDateString()}`
+            span.dateclass.d-none=package.PkgStartDate
+            h4=`End: ${package.PkgEndDate.toDateString()}`
+            p=package.PkgDesc
+          
+     
+    
+    hr
+  // /container
+footer.container
+  p &copy; Travel Experts 2017-2021
+script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js' integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj' crossorigin='anonymous')
+script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js' integrity='sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns' crossorigin='anonymous')
+//- the source file for the script is located under /javascripts/checkdate.js. Purpose of the script was to check if start date was expired.
+//- If expired, date will be displayed in red.
+script(src='../javascripts/checkdate.js')
+script.
+  checkDate()
+//
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>

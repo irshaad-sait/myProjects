@@ -1,0 +1,73 @@
+//- Authors: David McDonald, Irshaad Sardiwalla, Srinivasan Sivalingam
+//- Grp1 Team 2
+//- Date: 20 Mar 2021
+
+//- Description: summarises package selected and provides booking confiramtion. Allows for number of travellers to be selected
+extends layout
+
+block content
+    .row    
+      .col-sm-12.col-md-6.col-lg-6(style='background: rgb(255, 255, 255, 0.6); padding:15px')
+        table.table.table-borderless
+          thead
+            tr
+              th(scope='col') Details
+              th(scope='col') First
+              th(scope='col') Last
+              th(scope='col') Email
+          tbody
+          if currentUser   
+            tr
+              th(scope='row') Customer
+              td=currentUser.CustFirstName
+              td=currentUser.CustLastName
+              td=currentUser.userid
+            tr
+            tbody
+            if agent
+              th(scope='row') Agent
+              td=agent.AgtFirstName
+              td=agent.AgtLastName
+              td=agent.AgtEmail 
+
+              
+                
+
+      .col-sm-12.col-md-6.col-lg-6
+        .card.m-2
+          img.card-img-top(src=`../../${package.PkgImg}` alt='Package anme')
+          .card-body
+            h5.card-title=package.PkgName
+            p.card-text
+              | #{package.PkgDesc}
+            p.card-text
+              | Start: #{package.PkgStartDate.toDateString()}
+            p.card-text
+              | End: #{package.PkgEndDate.toDateString()}
+            p.card-text(id='cost') 
+              | Cost $#{package.PkgBasePrice} 
+            p.card-text
+              small.text-muted Agent Commission $#{package.PkgAgencyCommission} 
+            form(action=`/book/${package.PackageId}` method='POST')
+              #travellers.form-check.form-check-inline Number of travellers:
+                input#inlineRadio1.form-check-input(style='margin-left:5px' type='radio' name='inlineRadioOptions' value='1' checked='checked' onclick=`totalCost(this,${package.PkgBasePrice})`)
+                label.form-check-label(for='inlineRadio1') 1
+                .form-check.form-check-inline
+                input#inlineRadio2.form-check-input(type='radio' name='inlineRadioOptions' value='2' onclick=`totalCost(this,${package.PkgBasePrice})`)
+                label.form-check-label(for='inlineRadio2') 2
+                .form-check.form-check-inline
+                input#inlineRadio3.form-check-input(type='radio' name='inlineRadioOptions' value='3' onclick=`totalCost(this,${package.PkgBasePrice})`)
+                label.form-check-label(for='inlineRadio3') 3  
+              .form-row.d-none
+                .form-group.col-md-4
+                  label(for='packageid')
+                  input#packageid.form-control(type='integer' name='PackageId' placeholder=`${package.PackageId}` value=`${package.PackageId}`)
+              .form-row.d-none
+                .form-group.col-md-4
+                  label(for='packageCost')
+                  input#packageid.form-control(type='integer' name='packageCost' placeholder=`${package.PkgBasePrice}` value=package.PkgBasePrice)
+              .col-auto.my-1
+                button.btn.btn-primary(type='submit') Confirm Booking
+    
+    script(src='../javascripts/bookingcost.js')
+    

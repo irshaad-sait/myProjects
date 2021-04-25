@@ -1,0 +1,11 @@
+//extends layout
+doctype html
+head
+
+body
+  if (data[0].PkgStartDate > new Date())
+    h1(id='package1') not available
+  else 
+    h1(id='package1')=data[0].PkgStartDate
+
+      

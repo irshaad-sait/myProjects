@@ -1,0 +1,30 @@
+//- Authors: Farid Kassam, Shefqet Zyko, Srinivasan Sivalingam
+//- Grp1 Team 2
+//- Date: 21 Mar 2021
+
+//- Description: extends blogLayout and displays form for creating a new blog
+extends blogLayout
+
+block content
+ 
+   div#myForm.container
+    form(method='POST' action='/blogs')
+      .form-group
+        label(for="title") Title
+        input#title.form-control(type='text' name='title' value= title)
+      .form-group
+        label(for="author") Author
+        input#author.form-control(type='text' name='author' value= author)
+      .form-group
+        label(for="blogdate") Date
+        input#date.form-control(type='text' name='blogdate' value= blogdate)
+      .form-group
+        label(for='post') Post    
+        input#post.form-control(type='text' name='post' value= post)
+        //input#post.form-control(type='text' name='post' value= post)
+      .form-group
+        label(for='url') URL    
+        input#url.form-control(type='text' name='url' value= url)
+      .form-group
+        button.btn.btn-light(type='submit') Submit
+

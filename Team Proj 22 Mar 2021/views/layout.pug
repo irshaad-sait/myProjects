@@ -1,0 +1,95 @@
+//- Authors: David McDonald, Farid Kassam, Shefqet Zyko, Irshaad Sardiwalla, Srinivasan Sivalingam
+//- Grp1 Team 2
+//- Date: 20 Mar 2021
+
+//- Description: layout for newbooking.pug
+doctype html
+html
+  head
+    title= title
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    // Bootstrap CSS
+    link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css' integrity='sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l' crossorigin='anonymous')
+
+  style.
+    body {
+    background-image: url("/images/norway.jfif");
+    background-size: cover;
+    background-color: #c2a8ea;
+    padding: 3.5rem; }
+    h2 {
+      color:#eaaa4a;
+    }
+
+  body
+    // The user login/register
+    if !currentUser 
+      .dropdown.mr-4
+        button#dropdownMenuButton.btn.btn-link.btn-sm.dropdown-toggle.float-right(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+          | Login/Register
+        .dropdown-menu
+          form.px-4.py-3(role='form', action="/login",method="post")
+            .form-group
+              label(for='exampleDropdownFormEmail1') Username
+              input#exampleDropdownFormEmail1.form-control(type='text' name="username")
+            .form-group
+              label(for='exampleDropdownFormPassword1') Password
+              input#exampleDropdownFormPassword1.form-control(type='password' placeholder='Password' name='password')
+            .form-group
+              .form-check
+                input#dropdownCheck.form-check-input(type='checkbox')
+                label.form-check-label(for='dropdownCheck')
+                  | Remember me
+            button.btn.btn-primary(type='submit') Sign in
+          .dropdown-divider
+          a.bg-primary.dropdown-item(href='/register') Sign up
+    else    
+      .mt-1.mr-4.float-right
+        a.float-right(href="/log-out") Logout
+        p.float-right.mx-4.text-white Welcome #{currentUser.CustFirstName}
+
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light.mb-4.pl-5.sticky-top
+      a.navbar-brand(href='/') Travel Experts
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarNav.collapse.navbar-collapse
+        ul.navbar-nav
+          li.nav-item.active
+            a.nav-link(href='/')
+              | Home 
+              span.sr-only (current)
+          if currentUser
+            ul.navbar-nav.mr-auto
+              li.nav-item.active
+                a.nav-link(href='../destinations.html') Destinations
+              li.nav-item.active
+                a.nav-link(href='/packages') Packages
+              li.nav-item.active
+                a.nav-link(href='/viewbookings') Bookings
+              li.nav-item.active
+                a.nav-link(href='/blogs/all') Blogs
+              li.nav-item.active
+                a.nav-link(href='/blogs') Create Blog
+              li.nav-item.active
+                a.nav-link(href='/register')
+                  | Register 
+                  span.sr-only (current)
+              li.nav-item
+                a.nav-link(href='/contacts') Contact Us
+                    
+    .jumbotron.jumbotron-fluid.text-dark.mb-0(style="background-color: transparent")
+      .container.px-5    
+        h2.display-6 Please confirm your booking
+        p.lead(style='color:#eaaa4a;')
+          | You're just a click away from your dream destination.
+
+    .container(style='margin-bottom:150px;')
+      block content
+
+    footer.sm-secondary.text-light.fixed-bottom.p-4
+        h2.lead.text-center
+          | &copy; Copyright Team 2 #{new Date().getFullYear()}.
+
+    // Option 1: jQuery and Bootstrap Bundle (includes Popper)
+    script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js' integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj' crossorigin='anonymous')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js' integrity='sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns' crossorigin='anonymous')
